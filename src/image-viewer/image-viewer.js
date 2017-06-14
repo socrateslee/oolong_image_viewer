@@ -58,7 +58,7 @@ function ImageViewer(img){
         img.height = img.naturalHeight * window.innerWidth * 0.8 / img.naturalWidth
     }
 	}
-
+    var _this = this;
 	this.init = function(){
 		var newNode = document.createElement("span");
 		newNode.className = "image-viewer-fixed-element";
@@ -71,6 +71,24 @@ function ImageViewer(img){
 		document.getElementById("image-viewer-zoomin").onclick = this.zoomin;
 		document.getElementById("image-viewer-zoomout").onclick = this.zoomout;
 		document.getElementById("image-viewer-original").onclick = this.original;
+        // capture `ctrl + mousewheel` event
+        window.addEventListener('mousewheel', function(e) {
+            if (e.ctrlKey) {
+                if (e.wheelDelta > 0) {
+                    _this.zoomin();
+                } else {
+                    _this.zoomout();
+                }
+                e.preventDefault();
+            }
+        });
+        // capture `ctrl + 0` keypress event
+        window.addEventListener('keydown', function(e) {
+            if (e.keyCode === 48 && e.ctrlKey) {
+                _this.original();
+                e.preventDefault();
+            }
+        })
 		img.style.position = "relative";
 		img.style.cursor = "-webkit-grab";
 		img.style.left = "50px";
