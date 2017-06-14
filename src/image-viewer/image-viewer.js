@@ -84,7 +84,6 @@ function ImageViewer(img){
         });
         // capture `ctrl + 0` keypress event
         window.addEventListener('keydown', function(e) {
-            console.log('keydown', e)
             if (e.keyCode === 48 && e.ctrlKey) {
                 _this.original();
                 e.preventDefault();
