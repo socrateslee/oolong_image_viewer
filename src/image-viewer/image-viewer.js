@@ -79,7 +79,6 @@ function ImageViewer(img){
                 } else {
                     _this.zoomout();
                 }
-                e.preventDefault();
             }
         });
         // capture `ctrl + 0` keypress event
