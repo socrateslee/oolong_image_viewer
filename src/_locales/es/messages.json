@@ -1,0 +1,8 @@
+{
+  "extensionName": {
+    "message": "Visor de Imágenes Oolong"
+  },
+  "extensionDescription": {
+    "message": "Un visor de imágenes simple (para abrir imagen en nueva pestaña) que admite arrastrar la imagen."
+  }
+}

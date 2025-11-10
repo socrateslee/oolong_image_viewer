@@ -1,0 +1,8 @@
+{
+  "extensionName": {
+    "message": "Oolong Image Viewer"
+  },
+  "extensionDescription": {
+    "message": "A simple image viewer (for Open image in new tab) supporting drag of the image."
+  }
+}

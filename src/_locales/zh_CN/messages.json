@@ -1,0 +1,8 @@
+{
+  "extensionName": {
+    "message": "乌龙图片查看器"
+  },
+  "extensionDescription": {
+    "message": "一个简单的图片查看器（用于在新标签页中打开图片），支持拖动图片。"
+  }
+}
