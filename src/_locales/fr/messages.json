@@ -3,6 +3,6 @@
     "message": "Visionneuse d'Images Oolong"
   },
   "extensionDescription": {
-    "message": "Une visionneuse d'images simple (pour ouvrir l'image dans un nouvel onglet) prenant en charge le glissement de l'image."
+    "message": "Une visionneuse d'images/svg simple (pour ouvrir l'image dans un nouvel onglet) prenant en charge le glissement de l'image."
   }
 }

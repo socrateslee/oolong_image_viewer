@@ -4,7 +4,7 @@
   "short_name": "oolong image viewer",
   "description": "__MSG_extensionDescription__",
   "default_locale": "en",
-  "version": "1.2.0",
+  "version": "1.4.0",
   "icons": {
     "128": "icons/icon128.png",
     "48": "icons/icon48.png",
