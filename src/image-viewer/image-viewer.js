@@ -2,6 +2,38 @@ function ImageViewer(img, i18n){
     var isSVG = img.tagName === 'SVG' || img.tagName === 'svg';
     var _this = this;
     var offsetX, offsetY;
+    var originalWidth, originalHeight;
+    
+    this.scale = 1.0;
+
+    // Get original dimensions
+    if (isSVG) {
+        if (img.viewBox && img.viewBox.baseVal && img.viewBox.baseVal.width > 0) {
+            originalWidth = img.viewBox.baseVal.width;
+            originalHeight = img.viewBox.baseVal.height;
+        } else {
+            originalWidth = parseInt(img.getAttribute('width')) || img.clientWidth;
+            originalHeight = parseInt(img.getAttribute('height')) || img.clientHeight;
+        }
+    } else {
+        originalWidth = img.naturalWidth;
+        originalHeight = img.naturalHeight;
+    }
+
+    function applyZoom() {
+        if (!originalWidth || !originalHeight) return;
+        
+        var newWidth = originalWidth * _this.scale;
+        var newHeight = originalHeight * _this.scale;
+
+        if (isSVG) {
+            img.setAttribute('width', newWidth);
+            img.setAttribute('height', newHeight);
+        } else {
+            img.width = newWidth;
+            img.height = newHeight;
+        }
+    }
 
     this.showToast = function(message) {
         var toast = document.createElement('div');
@@ -71,60 +103,39 @@ function ImageViewer(img, i18n){
     }
 
 	this.zoomin = function(){
-		if (isSVG) {
-			var currentWidth = img.clientWidth || parseInt(img.getAttribute('width')) || 300;
-			var currentHeight = img.clientHeight || parseInt(img.getAttribute('height')) || 300;
-			img.setAttribute('width', parseInt(currentWidth * 1.25));
-			img.setAttribute('height', parseInt(currentHeight * 1.25));
-		} else {
-			img.width = parseInt(img.width * 1.25);
-			img.height = parseInt(img.height * 1.25);
-		}
+		_this.scale *= 1.25;
+        applyZoom();
 	}
 
 	this.zoomout = function(){
-		if (isSVG) {
-			var currentWidth = img.clientWidth || parseInt(img.getAttribute('width')) || 300;
-			var currentHeight = img.clientHeight || parseInt(img.getAttribute('height')) || 300;
-			img.setAttribute('width', parseInt(currentWidth * 0.8));
-			img.setAttribute('height', parseInt(currentHeight * 0.8));
-		} else {
-			img.width = parseInt(img.width * 0.8);
-			img.height = parseInt(img.height * 0.8);
-		}
+		_this.scale *= 0.8;
+        applyZoom();
 	}
 
 	this.original = function(){
-		if (isSVG || !img.naturalWidth || img.naturalWidth === 0) {
+		if (isSVG || !originalWidth || originalWidth === 0) {
             _this.showToast("No original size found.");
 		} else {
-            img.width = img.naturalWidth;
-            img.height = img.naturalHeight;
+            _this.scale = 1.0;
+            applyZoom();
 		}
 	}
 
     this.fitScreen = function() {
-        if (isSVG) {
-            var originalWidth, originalHeight;
-            if (img.viewBox && img.viewBox.baseVal && img.viewBox.baseVal.width > 0) {
-                originalWidth = img.viewBox.baseVal.width;
-                originalHeight = img.viewBox.baseVal.height;
-            } else {
-                originalWidth = parseInt(img.getAttribute('width')) || img.clientWidth || 300;
-                originalHeight = parseInt(img.getAttribute('height')) || img.clientHeight || 300;
-            }
-             if (originalWidth > 0) {
-                img.setAttribute('width', window.innerWidth * 0.9);
-                img.setAttribute('height', originalHeight * window.innerWidth * 0.9 / originalWidth);
-            }
-        } else {
-            if (img.naturalWidth > 0) {
-                img.width = window.innerWidth * 0.9;
-                img.height = img.naturalHeight * window.innerWidth * 0.9 / img.naturalWidth
-            }
-        }
-        img.style.left = (window.innerWidth - img.clientWidth) / 2 + 'px';
-        img.style.top = (window.innerHeight - img.clientHeight) / 2 + 'px';
+        if (!originalWidth || !originalHeight) return;
+
+        var targetWinWidth = window.innerWidth * 0.9;
+        var targetWinHeight = window.innerHeight * 0.9;
+
+        var widthRatio = targetWinWidth / originalWidth;
+        var heightRatio = targetWinHeight / originalHeight;
+
+        _this.scale = Math.min(widthRatio, heightRatio);
+        
+        applyZoom();
+
+        img.style.left = (window.innerWidth - (originalWidth * _this.scale)) / 2 + 'px';
+        img.style.top = (window.innerHeight - (originalHeight * _this.scale)) / 2 + 'px';
     }
 
 	this.init = function(){
