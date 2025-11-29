@@ -1,6 +1,81 @@
-.image-viewer-fixed-element {
-    position:fixed;
-    top:20px;
-    left:20px;
-    z-index:100;
+.image-viewer-toolbar {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    padding: 8px;
+    display: flex;
+    gap: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.image-viewer-toolbar button {
+    background-color: transparent;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+}
+
+.image-viewer-toolbar button:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.image-viewer-toolbar button svg {
+    width: 24px;
+    height: 24px;
+    fill: #333;
+}
+
+.image-viewer-toast {
+    position: fixed;
+    bottom: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-family: sans-serif;
+    font-size: 16px;
+    z-index: 200;
+    opacity: 0;
+    transition: all 0.5s ease;
+}
+
+.image-viewer-toast.show {
+    bottom: 30px;
+    opacity: 1;
+}
+
+/* New CSS for image-viewer-container */
+#image-viewer-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Hide scrollbars that might appear due to browser defaults */
+    background-color: #222; /* A dark background common for image viewers */
+    z-index: 99; /* Below the toolbar */
+}
+
+/* Ensure the image itself doesn't cause scrollbars within the container */
+#image-viewer-container img,
+#image-viewer-container svg {
+    /* These styles will be overridden by inline styles set by image-viewer.js for positioning/resizing */
+    /* They act as a fallback and to prevent initial flash of unstyled content */
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* Ensure image fits within bounds while maintaining aspect ratio */
 }

@@ -4,5 +4,17 @@
   },
   "extensionDescription": {
     "message": "一个简单的图片/svg查看器（用于在新标签页中打开图片），支持拖动图片。"
+  },
+  "tooltipZoomIn": {
+    "message": "放大"
+  },
+  "tooltipZoomOut": {
+    "message": "缩小"
+  },
+  "tooltipOriginalSize": {
+    "message": "原始尺寸"
+  },
+  "tooltipFitScreen": {
+    "message": "适应屏幕"
   }
 }

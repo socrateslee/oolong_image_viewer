@@ -4,5 +4,17 @@
   },
   "extensionDescription": {
     "message": "Un visor de imágenes/svg simple (para abrir imagen en nueva pestaña) que admite arrastrar la imagen."
+  },
+  "tooltipZoomIn": {
+    "message": "Acercar"
+  },
+  "tooltipZoomOut": {
+    "message": "Alejar"
+  },
+  "tooltipOriginalSize": {
+    "message": "Tamaño original"
+  },
+  "tooltipFitScreen": {
+    "message": "Ajustar a la pantalla"
   }
 }

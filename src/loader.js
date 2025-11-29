@@ -35,12 +35,15 @@
     return false;
   }
 
-
-  function loadJs(jsPath) {
+  function loadJsWithData(jsPath, data) {
     var head = document.getElementsByTagName("head")[0];
     var script = document.createElementNS('http://www.w3.org/1999/xhtml', 'script');
+    script.id = "oolong-image-viewer-script"; // Give it an ID to find it
     script.type = "text/javascript";
     script.src = jsPath;
+    for (var key in data) {
+        script.dataset[key] = data[key];
+    }
     head.appendChild(script);
   }
 
@@ -101,11 +104,16 @@
   addLoadEvent(function () {
     if (findImage()) {
       restructureSVGPage();
-      loadCss(
-        chrome.runtime.getURL("image-viewer/bootstrap/css/bootstrap.min.css"),
-      );
+
+      var i18nData = {
+        tooltipZoomIn: chrome.i18n.getMessage("tooltipZoomIn"),
+        tooltipZoomOut: chrome.i18n.getMessage("tooltipZoomOut"),
+        tooltipOriginalSize: chrome.i18n.getMessage("tooltipOriginalSize"),
+        tooltipFitScreen: chrome.i18n.getMessage("tooltipFitScreen")
+      };
+
       loadCss(chrome.runtime.getURL("image-viewer/css/image-viewer.css"));
-      loadJs(chrome.runtime.getURL("image-viewer/image-viewer.js"));
+      loadJsWithData(chrome.runtime.getURL("image-viewer/image-viewer.js"), i18nData);
     }
   });
 })();

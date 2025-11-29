@@ -4,5 +4,17 @@
   },
   "extensionDescription": {
     "message": "一個簡單的圖片/svg檢視器（用於在新分頁中開啟圖片），支援拖動圖片。"
+  },
+  "tooltipZoomIn": {
+    "message": "放大"
+  },
+  "tooltipZoomOut": {
+    "message": "縮小"
+  },
+  "tooltipOriginalSize": {
+    "message": "原始尺寸"
+  },
+  "tooltipFitScreen": {
+    "message": "符合螢幕"
   }
 }

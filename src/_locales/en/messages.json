@@ -4,5 +4,17 @@
   },
   "extensionDescription": {
     "message": "A simple image/svg viewer (for Open image in new tab) supporting drag of the image."
+  },
+  "tooltipZoomIn": {
+    "message": "Zoom In"
+  },
+  "tooltipZoomOut": {
+    "message": "Zoom Out"
+  },
+  "tooltipOriginalSize": {
+    "message": "Original Size"
+  },
+  "tooltipFitScreen": {
+    "message": "Fit Screen"
   }
 }

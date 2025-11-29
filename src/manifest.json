@@ -21,7 +21,7 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "image-viewer/bootstrap/*",
+
         "image-viewer/css/*",
         "image-viewer/*"
       ],
