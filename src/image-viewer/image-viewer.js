@@ -202,29 +202,36 @@ function ImageViewer(img, i18n){
 	var imageElement = defaultImg || defaultSvg;
 
 	if (imageElement) {
+        // Save the i18n data before we modify the DOM
+        var i18nData = i18n;
+
+        // Remove the image from DOM temporarily to preserve it
+        var parent = imageElement.parentNode;
+        if (parent) {
+            parent.removeChild(imageElement);
+        }
+
         // Hide the original page content
         document.body.innerHTML = '';
         document.body.style.overflow = 'hidden';
         document.body.style.backgroundColor = '#222';
-        
-        var newImage;
-        if (imageElement.tagName.toUpperCase() === 'SVG') {
-            newImage = imageElement.cloneNode(true);
-        } else {
-            newImage = document.createElement('img');
-            newImage.src = imageElement.src;
-        }
 
-        document.body.appendChild(newImage);
-        
+        // Re-append the original image element
+        document.body.appendChild(imageElement);
+
         var initViewer = function() {
-            var imageViewer = new ImageViewer(newImage, i18n);
+            var imageViewer = new ImageViewer(imageElement, i18nData);
             imageViewer.init();
         };
 
-        if (newImage.tagName.toUpperCase() === 'IMG') {
-            // Need to wait for the image to load to get its dimensions
-            newImage.onload = initViewer;
+        if (imageElement.tagName.toUpperCase() === 'IMG') {
+            // Check if image is already loaded
+            if (imageElement.complete && imageElement.naturalHeight !== 0) {
+                initViewer();
+            } else {
+                // Need to wait for the image to load to get its dimensions
+                imageElement.onload = initViewer;
+            }
         } else {
             // For SVG, it's already in the DOM, so we can initialize directly
             initViewer();
