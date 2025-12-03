@@ -190,7 +190,7 @@ function ImageViewer(img, i18n){
                 e.preventDefault();
             }
         })
-		img.style.position = "relative";
+		img.style.position = "absolute";
 		img.style.cursor = "grab";
 		img.style.userSelect = "none";
 		img.style.webkitUserSelect = "none";
