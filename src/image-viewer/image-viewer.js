@@ -68,6 +68,9 @@ function ImageViewer(img, i18n){
 
 		if (!isValidTarget) return;
 
+        e.preventDefault();
+        e.stopPropagation();
+
         offsetX = e.clientX;
         offsetY = e.clientY;
 
@@ -80,6 +83,7 @@ function ImageViewer(img, i18n){
 		img.style.cursor = "grabbing";
         document.onmousemove = function(e){
             if (!e) {e = window.event};
+            e.preventDefault();
             img.style.left = coordX + e.clientX - offsetX + 'px';
             img.style.top = coordY + e.clientY - offsetY + 'px';
             return false;
@@ -188,6 +192,15 @@ function ImageViewer(img, i18n){
         })
 		img.style.position = "relative";
 		img.style.cursor = "grab";
+		img.style.userSelect = "none";
+		img.style.webkitUserSelect = "none";
+		img.style.pointerEvents = "auto";
+
+		// Prevent browser's default drag-to-save behavior
+		img.addEventListener('dragstart', function(e) {
+			e.preventDefault();
+		});
+
 		this.fitScreen(); // Initial fit when loaded
 		this.enable();
 	}
@@ -205,7 +218,16 @@ function ImageViewer(img, i18n){
         // Save the i18n data before we modify the DOM
         var i18nData = i18n;
 
-        // Remove the image from DOM temporarily to preserve it
+        // Remove ALL event listeners from the original image by cloning without listeners
+        // This is necessary to remove browser's built-in image document zoom behavior
+        var cleanImage = imageElement.cloneNode(true);
+
+        // Copy over the loaded state for IMG elements
+        if (imageElement.tagName.toUpperCase() === 'IMG' && imageElement.complete) {
+            // Image is already loaded, the clone will have the same src
+        }
+
+        // Remove the original image
         var parent = imageElement.parentNode;
         if (parent) {
             parent.removeChild(imageElement);
@@ -216,21 +238,22 @@ function ImageViewer(img, i18n){
         document.body.style.overflow = 'hidden';
         document.body.style.backgroundColor = '#222';
 
-        // Re-append the original image element
-        document.body.appendChild(imageElement);
+        // Append the cleaned image (no event listeners)
+        document.body.appendChild(cleanImage);
 
         var initViewer = function() {
-            var imageViewer = new ImageViewer(imageElement, i18nData);
+            var imageViewer = new ImageViewer(cleanImage, i18nData);
             imageViewer.init();
         };
 
-        if (imageElement.tagName.toUpperCase() === 'IMG') {
+        if (cleanImage.tagName.toUpperCase() === 'IMG') {
             // Check if image is already loaded
             if (imageElement.complete && imageElement.naturalHeight !== 0) {
-                initViewer();
+                // Original was loaded, wait a tick for the clone to be ready
+                setTimeout(initViewer, 0);
             } else {
                 // Need to wait for the image to load to get its dimensions
-                imageElement.onload = initViewer;
+                cleanImage.onload = initViewer;
             }
         } else {
             // For SVG, it's already in the DOM, so we can initialize directly
