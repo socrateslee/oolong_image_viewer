@@ -156,22 +156,59 @@ function ImageViewer(img, i18n){
 			+ '<button id="image-viewer-original">'+originalSizeIcon+'</button>'
 			+ '<button id="image-viewer-fit-screen">'+fitScreenIcon+'</button>';
 		document.body.appendChild(newNode);
-        
-        var zoomInButton = document.getElementById("image-viewer-zoomin");
+
+        // Use querySelector on newNode directly instead of getElementById to avoid timing issues
+        var zoomInButton = newNode.querySelector("#image-viewer-zoomin");
         zoomInButton.title = i18n.tooltipZoomIn;
 		zoomInButton.onclick = this.zoomin;
 
-        var zoomOutButton = document.getElementById("image-viewer-zoomout");
+        var zoomOutButton = newNode.querySelector("#image-viewer-zoomout");
 		zoomOutButton.title = i18n.tooltipZoomOut;
         zoomOutButton.onclick = this.zoomout;
 
-        var originalButton = document.getElementById("image-viewer-original");
+        var originalButton = newNode.querySelector("#image-viewer-original");
 		originalButton.title = i18n.tooltipOriginalSize;
         originalButton.onclick = this.original;
 
-        var fitScreenButton = document.getElementById("image-viewer-fit-screen");
+        var fitScreenButton = newNode.querySelector("#image-viewer-fit-screen");
         fitScreenButton.title = i18n.tooltipFitScreen;
 		fitScreenButton.onclick = this.fitScreen;
+
+        // Make toolbar draggable
+        var toolbarDragging = false;
+        var toolbarOffsetX, toolbarOffsetY;
+
+        newNode.addEventListener('mousedown', function(e) {
+            // Only allow dragging if clicking on the toolbar background, not buttons
+            if (e.target.tagName === 'BUTTON' || e.target.closest('button')) {
+                return;
+            }
+
+            toolbarDragging = true;
+            toolbarOffsetX = e.clientX - newNode.offsetLeft;
+            toolbarOffsetY = e.clientY - newNode.offsetTop;
+            newNode.style.cursor = 'grabbing';
+            e.preventDefault();
+        });
+
+        document.addEventListener('mousemove', function(e) {
+            if (toolbarDragging) {
+                newNode.style.left = (e.clientX - toolbarOffsetX) + 'px';
+                newNode.style.top = (e.clientY - toolbarOffsetY) + 'px';
+                newNode.style.right = 'auto';
+                newNode.style.bottom = 'auto';
+            }
+        });
+
+        document.addEventListener('mouseup', function() {
+            if (toolbarDragging) {
+                toolbarDragging = false;
+                newNode.style.cursor = 'grab';
+            }
+        });
+
+        // Set initial cursor for toolbar
+        newNode.style.cursor = 'grab';
 
         window.addEventListener('mousewheel', function(e) {
             if (e.ctrlKey) {
@@ -247,13 +284,39 @@ function ImageViewer(img, i18n){
         };
 
         if (cleanImage.tagName.toUpperCase() === 'IMG') {
-            // Check if image is already loaded
-            if (imageElement.complete && imageElement.naturalHeight !== 0) {
-                // Original was loaded, wait a tick for the clone to be ready
-                setTimeout(initViewer, 0);
+            var viewerInitialized = false;
+
+            var safeInitViewer = function() {
+                if (!viewerInitialized) {
+                    viewerInitialized = true;
+                    initViewer();
+                }
+            };
+
+            // Check if the CLONED image is already loaded (checking complete AND naturalWidth/Height)
+            if (cleanImage.complete && cleanImage.naturalWidth > 0 && cleanImage.naturalHeight > 0) {
+                // Clone is already loaded, initialize immediately
+                safeInitViewer();
             } else {
-                // Need to wait for the image to load to get its dimensions
-                cleanImage.onload = initViewer;
+                // Need to wait for the clone to load its dimensions
+                cleanImage.onload = safeInitViewer;
+                // Also handle error case
+                cleanImage.onerror = function() {
+                    console.error('Failed to load image:', cleanImage.src);
+                };
+
+                // Fallback: Check periodically if image has loaded (in case onload doesn't fire)
+                var checkInterval = setInterval(function() {
+                    if (cleanImage.complete && cleanImage.naturalWidth > 0 && cleanImage.naturalHeight > 0) {
+                        clearInterval(checkInterval);
+                        safeInitViewer();
+                    }
+                }, 100);
+
+                // Stop checking after 10 seconds
+                setTimeout(function() {
+                    clearInterval(checkInterval);
+                }, 10000);
             }
         } else {
             // For SVG, it's already in the DOM, so we can initialize directly
