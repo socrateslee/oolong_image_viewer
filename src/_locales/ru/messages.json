@@ -1,0 +1,20 @@
+{
+  "extensionName": {
+    "message": "Oolong Image Viewer"
+  },
+  "extensionDescription": {
+    "message": "Простой просмотрщик изображений/svg (для открытия изображения в новой вкладке) с поддержкой перетаскивания."
+  },
+  "tooltipZoomIn": {
+    "message": "Увеличить"
+  },
+  "tooltipZoomOut": {
+    "message": "Уменьшить"
+  },
+  "tooltipOriginalSize": {
+    "message": "Исходный размер"
+  },
+  "tooltipFitScreen": {
+    "message": "По размеру экрана"
+  }
+}

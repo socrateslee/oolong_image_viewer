@@ -1,0 +1,20 @@
+{
+  "extensionName": {
+    "message": "Oolong Image Viewer"
+  },
+  "extensionDescription": {
+    "message": "ایک سادہ تصویر/svg ناظر (نئی ٹیب میں تصویر کھولنے کے لیے) جو تصویر کو گھسیٹنے کی حمایت کرتا ہے۔"
+  },
+  "tooltipZoomIn": {
+    "message": "بڑا کریں"
+  },
+  "tooltipZoomOut": {
+    "message": "چھوٹا کریں"
+  },
+  "tooltipOriginalSize": {
+    "message": "اصل سائز"
+  },
+  "tooltipFitScreen": {
+    "message": "اسکرین پر فٹ کریں"
+  }
+}

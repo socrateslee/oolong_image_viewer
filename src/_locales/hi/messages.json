@@ -1,0 +1,20 @@
+{
+  "extensionName": {
+    "message": "Oolong Image Viewer"
+  },
+  "extensionDescription": {
+    "message": "एक साधारण छवि/svg दर्शक (नई टैब में छवि खोलने के लिए) जो छवि को खींचने का समर्थन करता है।"
+  },
+  "tooltipZoomIn": {
+    "message": "ज़ूम इन"
+  },
+  "tooltipZoomOut": {
+    "message": "ज़ूम आउट"
+  },
+  "tooltipOriginalSize": {
+    "message": "मूल आकार"
+  },
+  "tooltipFitScreen": {
+    "message": "स्क्रीन में फिट करें"
+  }
+}

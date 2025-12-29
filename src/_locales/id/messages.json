@@ -1,0 +1,20 @@
+{
+  "extensionName": {
+    "message": "Oolong Image Viewer"
+  },
+  "extensionDescription": {
+    "message": "Penampil gambar/svg sederhana (untuk Buka gambar di tab baru) yang mendukung penyeretan gambar."
+  },
+  "tooltipZoomIn": {
+    "message": "Perbesar"
+  },
+  "tooltipZoomOut": {
+    "message": "Perkecil"
+  },
+  "tooltipOriginalSize": {
+    "message": "Ukuran Asli"
+  },
+  "tooltipFitScreen": {
+    "message": "Pas di Layar"
+  }
+}

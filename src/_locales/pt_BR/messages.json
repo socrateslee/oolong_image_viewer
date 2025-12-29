@@ -1,0 +1,20 @@
+{
+  "extensionName": {
+    "message": "Oolong Image Viewer"
+  },
+  "extensionDescription": {
+    "message": "Um visualizador de imagens/svg simples (para Abrir imagem em nova guia) com suporte a arrastar a imagem."
+  },
+  "tooltipZoomIn": {
+    "message": "Aumentar Zoom"
+  },
+  "tooltipZoomOut": {
+    "message": "Diminuir Zoom"
+  },
+  "tooltipOriginalSize": {
+    "message": "Tamanho Original"
+  },
+  "tooltipFitScreen": {
+    "message": "Ajustar à Tela"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "extensionName": {
+    "message": "Oolong Image Viewer"
+  },
+  "extensionDescription": {
+    "message": "画像をドラッグできるシンプルな画像/SVGビューア（新しいタブで画像を開く用）。"
+  },
+  "tooltipZoomIn": {
+    "message": "拡大"
+  },
+  "tooltipZoomOut": {
+    "message": "縮小"
+  },
+  "tooltipOriginalSize": {
+    "message": "元のサイズ"
+  },
+  "tooltipFitScreen": {
+    "message": "画面に合わせる"
+  }
+}

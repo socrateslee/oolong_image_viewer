@@ -1,0 +1,20 @@
+{
+  "extensionName": {
+    "message": "Oolong Image Viewer"
+  },
+  "extensionDescription": {
+    "message": "이미지 드래그를 지원하는 간단한 이미지/SVG 뷰어 (새 탭에서 이미지 열기용)."
+  },
+  "tooltipZoomIn": {
+    "message": "확대"
+  },
+  "tooltipZoomOut": {
+    "message": "축소"
+  },
+  "tooltipOriginalSize": {
+    "message": "원래 크기"
+  },
+  "tooltipFitScreen": {
+    "message": "화면에 맞춤"
+  }
+}

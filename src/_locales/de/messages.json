@@ -1,0 +1,20 @@
+{
+  "extensionName": {
+    "message": "Oolong Image Viewer"
+  },
+  "extensionDescription": {
+    "message": "Ein einfacher Bild-/SVG-Betrachter (für Bild in neuem Tab öffnen) mit Unterstützung für das Ziehen des Bildes."
+  },
+  "tooltipZoomIn": {
+    "message": "Vergrößern"
+  },
+  "tooltipZoomOut": {
+    "message": "Verkleinern"
+  },
+  "tooltipOriginalSize": {
+    "message": "Originalgröße"
+  },
+  "tooltipFitScreen": {
+    "message": "An Bildschirm anpassen"
+  }
+}
