@@ -109,7 +109,8 @@
         tooltipZoomIn: chrome.i18n.getMessage("tooltipZoomIn"),
         tooltipZoomOut: chrome.i18n.getMessage("tooltipZoomOut"),
         tooltipOriginalSize: chrome.i18n.getMessage("tooltipOriginalSize"),
-        tooltipFitScreen: chrome.i18n.getMessage("tooltipFitScreen")
+        tooltipFitScreen: chrome.i18n.getMessage("tooltipFitScreen"),
+        tooltipChangeBackground: chrome.i18n.getMessage("tooltipChangeBackground")
       };
 
       loadCss(chrome.runtime.getURL("image-viewer/css/image-viewer.css"));

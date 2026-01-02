@@ -16,5 +16,8 @@
   },
   "tooltipFitScreen": {
     "message": "स्क्रीन में फिट करें"
+  },
+  "tooltipChangeBackground": {
+    "message": "पृष्ठभूमि बदलें"
   }
 }

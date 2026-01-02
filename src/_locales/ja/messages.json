@@ -16,5 +16,8 @@
   },
   "tooltipFitScreen": {
     "message": "画面に合わせる"
+  },
+  "tooltipChangeBackground": {
+    "message": "背景を変更"
   }
 }

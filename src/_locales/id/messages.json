@@ -16,5 +16,8 @@
   },
   "tooltipFitScreen": {
     "message": "Pas di Layar"
+  },
+  "tooltipChangeBackground": {
+    "message": "Ubah Latar Belakang"
   }
 }

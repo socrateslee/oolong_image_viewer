@@ -16,5 +16,8 @@
   },
   "tooltipFitScreen": {
     "message": "По размеру экрана"
+  },
+  "tooltipChangeBackground": {
+    "message": "Изменить фон"
   }
 }

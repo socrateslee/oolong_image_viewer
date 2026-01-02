@@ -16,5 +16,8 @@
   },
   "tooltipFitScreen": {
     "message": "符合螢幕"
+  },
+  "tooltipChangeBackground": {
+    "message": "更改背景"
   }
 }

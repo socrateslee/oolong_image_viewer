@@ -16,5 +16,8 @@
   },
   "tooltipFitScreen": {
     "message": "Fit Screen"
+  },
+  "tooltipChangeBackground": {
+    "message": "Change Background"
   }
 }

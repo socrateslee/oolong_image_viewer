@@ -16,5 +16,8 @@
   },
   "tooltipFitScreen": {
     "message": "Ajustar ao Ecrã"
+  },
+  "tooltipChangeBackground": {
+    "message": "Alterar Fundo"
   }
 }

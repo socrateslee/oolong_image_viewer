@@ -16,5 +16,8 @@
   },
   "tooltipFitScreen": {
     "message": "اسکرین پر فٹ کریں"
+  },
+  "tooltipChangeBackground": {
+    "message": "پس منظر تبدیل کریں"
   }
 }

@@ -16,5 +16,8 @@
   },
   "tooltipFitScreen": {
     "message": "화면에 맞춤"
+  },
+  "tooltipChangeBackground": {
+    "message": "배경 변경"
   }
 }

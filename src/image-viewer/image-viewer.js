@@ -148,13 +148,17 @@ function ImageViewer(img, i18n){
         var originalSizeIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm-7 7H3v4c0 1.1.9 2 2 2h4v-2H5v-4zM5 5h4V3H5c-1.1 0-2 .9-2 2v4h2V5zm14-2h-4v2h4v4h2V5c0-1.1-.9-2-2-2zm0 16h-4v2h4c1.1 0 2-.9 2-2v-4h-2v4z"/></svg>`;
         var fitScreenIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M3 3h18v18H3V3zm2 2v14h14V5H5z"/><path d="M7 12h10M15 10l2 2-2 2M9 10l-2 2 2 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 
+        var paletteIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3a9 9 0 0 0 0 18c.83 0 1.5-.67 1.5-1.5 0-.32-.13-.62-.34-.85-.27-.28-.38-.58-.38-.86 0-1.1.9-2 2-2h.5a4.5 4.5 0 0 0 4.5-4.5c0-4.54-4.03-8.29-8.29-8.29zM7 9.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0zm2.5 6a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0zm4.5-3a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0zm3-4.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0z"/></svg>`;
+
 		var newNode = document.createElementNS('http://www.w3.org/1999/xhtml', 'div');
 		newNode.className = "image-viewer-toolbar";
 		newNode.innerHTML = 
 			'<button id="image-viewer-zoomin">'+zoomInIcon+'</button>'
 			+ '<button id="image-viewer-zoomout">'+zoomOutIcon+'</button>'
 			+ '<button id="image-viewer-original">'+originalSizeIcon+'</button>'
-			+ '<button id="image-viewer-fit-screen">'+fitScreenIcon+'</button>';
+			+ '<button id="image-viewer-fit-screen">'+fitScreenIcon+'</button>'
+            + '<button id="image-viewer-palette">'+paletteIcon+'</button>'
+            + '<div class="image-viewer-palette" id="image-viewer-color-picker"></div>';
 		document.body.appendChild(newNode);
 
         // Use querySelector on newNode directly instead of getElementById to avoid timing issues
@@ -173,6 +177,65 @@ function ImageViewer(img, i18n){
         var fitScreenButton = newNode.querySelector("#image-viewer-fit-screen");
         fitScreenButton.title = i18n.tooltipFitScreen;
 		fitScreenButton.onclick = this.fitScreen;
+
+        // Palette Logic
+        var paletteButton = newNode.querySelector("#image-viewer-palette");
+        var paletteContainer = newNode.querySelector("#image-viewer-color-picker");
+        
+        paletteButton.title = i18n.tooltipChangeBackground;
+        
+        paletteButton.onclick = function(e) {
+            e.stopPropagation();
+            paletteContainer.classList.toggle('show');
+        };
+
+        // Close palette when clicking outside
+        document.addEventListener('mousedown', function(e) {
+             if (paletteContainer.classList.contains('show') && !paletteButton.contains(e.target) && !paletteContainer.contains(e.target)) {
+                 paletteContainer.classList.remove('show');
+             }
+        });
+
+        var colors = [
+            { color: '#000', title: 'Black' },
+            { color: '#fff', title: 'White' },
+            { color: 'transparent', title: 'Transparent', className: 'image-viewer-bg-checkerboard' },
+            { color: '#808080', title: 'Gray' },
+            { color: '#e0e0e0', title: 'Light Gray' },
+            { color: '#f0e68c', title: 'Khaki' },
+            { color: '#ffc0cb', title: 'Pink' },
+            { color: '#1E90FF', title: 'Blue' },
+            { color: '#32CD32', title: 'Green' },
+            { color: '#8B4513', title: 'Brown' },
+            { color: '#800080', title: 'Purple' },
+            { color: '#FF0000', title: 'Red' }
+        ];
+
+        colors.forEach(function(c) {
+            var btn = document.createElementNS('http://www.w3.org/1999/xhtml', 'div');
+            btn.className = 'image-viewer-palette-btn';
+            if (c.className) {
+                btn.classList.add(c.className);
+            } else {
+                btn.style.backgroundColor = c.color;
+            }
+            btn.title = c.title;
+            btn.onclick = function(e) {
+                e.stopPropagation();
+                var docBody = document.body || document.getElementsByTagName('body')[0];
+                if (c.className) {
+                    docBody.style.backgroundColor = '';
+                    docBody.style.backgroundImage = '';
+                    docBody.className = c.className;
+                } else {
+                    docBody.className = '';
+                    docBody.style.backgroundImage = 'none';
+                    docBody.style.backgroundColor = c.color;
+                }
+                paletteContainer.classList.remove('show');
+            };
+            paletteContainer.appendChild(btn);
+        });
 
         // Make toolbar draggable
         var toolbarDragging = false;
@@ -273,7 +336,7 @@ function ImageViewer(img, i18n){
         // Hide the original page content
         document.body.innerHTML = '';
         document.body.style.overflow = 'hidden';
-        document.body.style.backgroundColor = '#222';
+        document.body.style.backgroundColor = '#000';
 
         // Append the cleaned image (no event listeners)
         document.body.appendChild(cleanImage);

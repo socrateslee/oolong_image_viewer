@@ -66,7 +66,7 @@
     justify-content: center;
     align-items: center;
     overflow: hidden; /* Hide scrollbars that might appear due to browser defaults */
-    background-color: #222; /* A dark background common for image viewers */
+    background-color: #000; /* A dark background common for image viewers */
     z-index: 99; /* Below the toolbar */
 }
 
@@ -78,6 +78,53 @@
     max-width: 100%;
     max-height: 100%;
     object-fit: contain; /* Ensure image fits within bounds while maintaining aspect ratio */
+}
+
+/* New Palette Styles */
+.image-viewer-palette {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 8px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 8px;
+    padding: 8px;
+    display: none;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    width: auto;
+}
+
+.image-viewer-palette.show {
+    display: grid;
+}
+
+.image-viewer-palette-btn {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    border: 1px solid rgba(0,0,0,0.2);
+    cursor: pointer;
+    padding: 0;
+    transition: transform 0.1s, border-color 0.1s;
+    box-sizing: border-box;
+    display: block; /* Ensure it behaves like a block for dimensions */
+}
+
+.image-viewer-palette-btn:hover {
+    transform: scale(1.1);
+    border-color: #666;
+    z-index: 1;
+}
+
+.image-viewer-bg-checkerboard {
+    background-color: #fff;
+    background-image: 
+        linear-gradient(45deg, #ccc 25%, transparent 25%, transparent 75%, #ccc 75%), 
+        linear-gradient(45deg, #ccc 25%, transparent 25%, transparent 75%, #ccc 75%);
+    background-position: 0 0, 10px 10px;
+    background-size: 20px 20px;
 }
 
 /* Hide control panel when printing */
